@@ -6,7 +6,35 @@ using System.Threading.Tasks;
 
 namespace B22_Ex03_Natali_318614906_Hila_207298894
 {
-    class Vehicle
+    public class Vehicle
     {
+        private string m_ModelName;
+        private string m_LicenseNumber;
+        private float m_RemainEnergyPercents;
+        private List<Wheel> m_ListOfWheel;
+
+        public string ModelName
+        {
+            get { return m_ModelName; }
+            set { m_ModelName = value; }
+        }
+
+        public List<Wheel> ListOfWheel
+        {
+            get { return m_ListOfWheel; }
+            set { m_ListOfWheel = value; }
+        }
+
+        public string LicenseNumber
+        {
+            get { return m_LicenseNumber; }
+            set { m_LicenseNumber = value; }
+        }
+
+        public float RemainEnergyPercents
+        {
+            get { return m_RemainEnergyPercents; }
+            set { m_RemainEnergyPercents = value; }
+        }
     }
 }
