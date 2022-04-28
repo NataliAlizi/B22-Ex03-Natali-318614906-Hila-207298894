@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace B22_Ex03_Natali_318614906_Hila_207298894
 {
-    public class MotorCycle
+    public class MotorCycle : Vehicle
     {
         private enum eLicenseType
         {
