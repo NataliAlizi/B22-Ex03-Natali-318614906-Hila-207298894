@@ -10,7 +10,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
     {
         private string m_ManufacturerName;
         private float m_CurrAirPressuer;
-        private float m_MaxAirPressuer;
+        private float m_MaxAirPressuer;       
 
         public string ManufacturerName
         {
@@ -29,10 +29,17 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             get { return m_MaxAirPressuer; }
             set { m_MaxAirPressuer = value; }
         }
-
-        public void WheelInflation()
+        /*פעולת ניפוח מקבלת כמה אוויר להוסיף לגלגל ומשנה את מצב לחץ האוויר אם הוא לא חורג מהמקסימום*/
+        public void WheelInflation(float i_HowMuchAirPressuerToAdd)
         {
-
+            if(m_CurrAirPressuer+i_HowMuchAirPressuerToAdd<=m_MaxAirPressuer)
+            {
+                m_CurrAirPressuer += i_HowMuchAirPressuerToAdd;
+            }
+            else
+            {
+                //whatToDo????
+            }
         }
     }
 }

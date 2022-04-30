@@ -13,6 +13,15 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         private float m_RemainEnergyPercents;
         private List<Wheel> m_ListOfWheel;
 
+        public Vehicle(string i_ModelName, string i_LicenseNumber,float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel)
+        {
+            m_ModelName = i_ModelName;
+            m_LicenseNumber = i_LicenseNumber;
+            m_RemainEnergyPercents = i_RemainEnergyPercents;
+            m_ListOfWheel = new List<Wheel>(i_ListOfWheel.Count);
+            m_ListOfWheel = i_ListOfWheel;
+        }
+
         public string ModelName
         {
             get { return m_ModelName; }

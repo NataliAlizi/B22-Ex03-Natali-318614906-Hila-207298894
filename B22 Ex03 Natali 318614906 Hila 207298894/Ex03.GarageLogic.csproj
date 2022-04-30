@@ -37,8 +37,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
+    <Compile Include="ElectricCar.cs" />
+    <Compile Include="ElectricMotorcycle.cs" />
     <Compile Include="ElectricType.cs" />
+    <Compile Include="FuelCar.cs" />
+    <Compile Include="FuelMotorcycle.cs" />
     <Compile Include="FuelType.cs" />
+    <Compile Include="Garage.cs" />
+    <Compile Include="GarageDataPerVehicle.cs" />
+    <Compile Include="GarageMeneger.cs" />
     <Compile Include="MotorCycle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Truck.cs" />

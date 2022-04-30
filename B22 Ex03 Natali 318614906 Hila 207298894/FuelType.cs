@@ -6,15 +6,25 @@ using System.Threading.Tasks;
 
 namespace B22_Ex03_Natali_318614906_Hila_207298894
 {
-    public class FuelType
+    public class FuelType : Vehicle
     {
-        private enum eFuelType
+
+        public enum eFuelType
         {
             Soler, Octan95, Octan96, Octan98
         }
 
         private float m_CurrAmountOfFuel;
         private float m_MaxAmountOfFuel;
+        private eFuelType m_FuelType;
+
+        public FuelType(string i_FuelType,float i_CurrAmountOfFuel, float i_MaxAmountOfFuel, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel) : 
+            base(i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
+        {
+            Enum.TryParse(i_FuelType, out eFuelType m_FuelType);//CHECK
+            m_CurrAmountOfFuel = i_CurrAmountOfFuel;
+            m_MaxAmountOfFuel = i_MaxAmountOfFuel;
+        }
 
         private float CurrAmountOfFuel
         {
