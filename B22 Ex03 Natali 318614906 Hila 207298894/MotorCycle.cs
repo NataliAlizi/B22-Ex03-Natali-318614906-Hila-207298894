@@ -12,6 +12,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         {
             A, A1, B1, BB
         }
+
         private int m_EngineCapacity;
 
         public int EngineCapacity

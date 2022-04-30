@@ -12,6 +12,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         {
             Red, White, Green, Blue
         }
+
         private enum eNumberOfDoors
         {
             Two = 2, Three, Four, Five

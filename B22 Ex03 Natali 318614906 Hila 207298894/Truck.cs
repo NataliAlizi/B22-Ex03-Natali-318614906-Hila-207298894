@@ -10,9 +10,10 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
     {
         private bool m_DriveRefrigeratedContents;
         private float m_CargoCapacity;
-        private enum eTruckData
+
+        public enum eTruckData
         {
-            NumberOfWheels=16, MaxAirPressuer=24,MaxAmountOfFuelInCm=120000, FuelTypeTruck=FuelType.eFuelType.Soler
+            NumberOfWheels = 16, MaxAirPressuer = 24, MaxAmountOfFuelInCm = 120000, Soler
         }
 
         public Truck(bool i_DriveRefrigeratedContents, float i_CargoCapacity, string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel) :
@@ -32,6 +33,17 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         {
             get { return m_CargoCapacity; }
             set { m_CargoCapacity = value; }
+        }
+
+        public override bool ValidTypeOfFuelForThisVehicle(FuelType.eFuelType i_WantedFuelType)
+        {
+            bool answer = false;
+            if (this.ListOfWheel.Count == (int)Truck.eTruckData.NumberOfWheels && i_WantedFuelType.ToString() == Truck.eTruckData.Soler.ToString())
+            {
+                answer = true;
+            }
+
+            return answer;
         }
     }
 }

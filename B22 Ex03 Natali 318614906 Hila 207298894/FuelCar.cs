@@ -10,12 +10,12 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
     {
         private Car m_Car;
 
-        private enum eFuelCarData
+        public enum eFuelCarData
         {
-            NumberOfWheels = 4, MaxAirPressuer = 29, MaxAmountOfFuelInCm = 38000, FuelTypeTruck = FuelType.eFuelType.Octan95
+            NumberOfWheels = 4, MaxAirPressuer = 29, MaxAmountOfFuelInCm = 38000, Octan95
         }
 
-        public FuelCar(Car i_Car,string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel) :
+        public FuelCar(Car i_Car, string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel) :
             base(i_FuelType, i_CurrAmountOfFuel, i_MaxAmountOfFuel, i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
         {
             m_Car = new Car();
@@ -26,6 +26,17 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         {
             get { return m_Car; }
             set { m_Car = value; }
+        }
+
+        public override bool ValidTypeOfFuelForThisVehicle(FuelType.eFuelType i_WantedFuelType)
+        {
+            bool answer = false;
+            if (this.ListOfWheel.Count == (int)FuelCar.eFuelCarData.NumberOfWheels && i_WantedFuelType.ToString() == FuelCar.eFuelCarData.Octan95.ToString())
+            {
+                answer = true;
+            }
+
+            return answer;
         }
     }
 }
