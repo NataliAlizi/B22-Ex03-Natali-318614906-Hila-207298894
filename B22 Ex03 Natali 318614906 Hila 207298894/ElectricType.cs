@@ -18,9 +18,17 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             m_CurrBatteryTime = i_CurrBatteryTime;
         }
 
-        public void BatteryCharging()
+        public void BatteryCharging(float i_WantedAmountOfBattery)
         {
-
+            if (this.m_CurrBatteryTime + i_WantedAmountOfBattery <= this.m_MaxBatteryTime)
+            {
+                this.m_CurrBatteryTime += i_WantedAmountOfBattery;
+            }
+            else
+            {
+                ValueOutOfRangeException valueOutOfRangeException = new ValueOutOfRangeException(string.Format("Your max Battery capacity is {0}, and your current Battery capacity is {1}, so you cant refueling {2} amount.",m_MaxBatteryTime, m_CurrBatteryTime, i_WantedAmountOfBattery), m_MaxBatteryTime, 0);
+                throw valueOutOfRangeException;
+            }
         }
 
         public float CurrBatteryTime

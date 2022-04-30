@@ -31,7 +31,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         public override bool ValidTypeOfFuelForThisVehicle(FuelType.eFuelType i_WantedFuelType)
         {
             bool answer = false;
-            if (this.ListOfWheel.Count == (int)FuelMotorcycle.eFuelMotorCycleData.NumberOfWheels && i_WantedFuelType.ToString() == FuelMotorcycle.eFuelMotorCycleData.Octan98.ToString())
+            if (i_WantedFuelType.ToString() == FuelMotorcycle.eFuelMotorCycleData.Octan98.ToString())
             {
                 answer = true;
             }
