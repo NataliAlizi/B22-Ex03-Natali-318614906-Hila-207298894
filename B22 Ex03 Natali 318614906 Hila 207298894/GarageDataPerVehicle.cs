@@ -31,7 +31,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             m_OwnerName = i_OwnerName;
             m_OwnerPhoneNumber = i_OwnerPhoneNumber;
             m_VehicleInGarage = i_Vehicle;
-            m_Status= (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus),i_Status);
+            m_Status= (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus),i_Status); ///check exeption!!! (Format exeption)
         }
 
         public string OwnerName

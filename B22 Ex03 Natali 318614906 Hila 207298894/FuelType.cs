@@ -59,7 +59,6 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         public virtual bool ValidTypeOfFuelForThisVehicle(FuelType.eFuelType i_WantedFuelType)//לבדוק איך משנים
         {
             return true;
-        }        
-
+        }
     }
 }
