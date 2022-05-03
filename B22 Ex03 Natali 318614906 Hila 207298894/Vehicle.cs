@@ -8,6 +8,10 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
 {
     public class Vehicle
     {
+        public enum eFuelType
+        {
+            none,Soler, Octan95, Octan96, Octan98
+        }
         private string m_ModelName;
         private string m_LicenseNumber;
         private float m_RemainEnergyPercents;
@@ -44,6 +48,11 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         {
             get { return m_RemainEnergyPercents; }
             set { m_RemainEnergyPercents = value; }
+        }
+
+        public virtual void Refueling(Vehicle.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething)
+        {
+
         }
     }
 }
