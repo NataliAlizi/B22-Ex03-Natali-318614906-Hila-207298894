@@ -20,11 +20,18 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 w1.Add(new Wheel("cc", 2.4f, 24));
 
             Engine engine1 = new ElectricType(100, 150);
-            Vehicle vehicle1 = new Car("Kia", "123456", 100, w, engine1, 5, 3);
+            Vehicle vehicle1 = new Car("Kia", "1234567", 100, w, engine1, 5, 3);
             Engine engine = new FuelType("Soler", 100, 150);
             Vehicle vehicle = new Truck("nshavo", "123456", 10, w1, engine, true, 100);
             vehicle1.MyEngine.Refueling(vehicle1, 0, 20);
             vehicle.MyEngine.Refueling(vehicle, (Engine.eFuelType)1, 10);
+            Garage garage = new Garage();
+            garage.AddVehicle("naatli", "0502", vehicle1);
+            garage.AddVehicle("xsxs", "052202", vehicle);
+
+            garage.RefulingVehicle("123456", (Engine.eFuelType)1, 20);
+            garage.RefulingVehicle("1234567", (Engine.eFuelType)0, 20);
+
 
 
 

@@ -77,5 +77,24 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 m_ListOfVehicleInGarage.Add(newVehicle);
             }
         }
+
+        public void RefulingVehicle(string i_LicenseNumber, Engine.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething)
+        {
+            bool isExist = false;
+            foreach (GarageDataPerVehicle vehicle in m_ListOfVehicleInGarage)
+            {
+                if (vehicle.VehicleInGarage.LicenseNumber == i_LicenseNumber)
+                {
+                    isExist = true;
+                    vehicle.VehicleInGarage.MyEngine.Refueling(vehicle.VehicleInGarage, i_WantedFuelType, i_WantedAmountOfsomething);
+                    break;
+                }
+            }
+            if (!isExist)
+            {
+                ArgumentException argumentException = new ArgumentException(string.Format("Vehicle with License number:{0} sodent exist", i_LicenseNumber));
+                throw argumentException;
+            }
+        }
     }
 }
