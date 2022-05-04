@@ -42,15 +42,15 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 }
             }
         }
-       
+
         public void WheelInflationToMax(string i_LicenseNumber)
         {
             float howMuchToFill = 0;
-            foreach(GarageDataPerVehicle vehicle in m_ListOfVehicleInGarage)
+            foreach (GarageDataPerVehicle vehicle in m_ListOfVehicleInGarage)
             {
-                if(i_LicenseNumber == vehicle.VehicleInGarage.LicenseNumber)
+                if (i_LicenseNumber == vehicle.VehicleInGarage.LicenseNumber)
                 {
-                    foreach(Wheel wheel in vehicle.VehicleInGarage.ListOfWheel)
+                    foreach (Wheel wheel in vehicle.VehicleInGarage.ListOfWheel)
                     {
                         howMuchToFill = wheel.MaxAirPressuer - wheel.CurrAirPressuer;
                         wheel.WheelInflation(howMuchToFill);
@@ -95,6 +95,26 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 ArgumentException argumentException = new ArgumentException(string.Format("Vehicle with License number:{0} sodent exist", i_LicenseNumber));
                 throw argumentException;
             }
+        }
+
+        public StringBuilder DisplaysVehicleData(string i_LicenseNumber)
+        {
+            StringBuilder vehicleData = new StringBuilder();
+
+            foreach (GarageDataPerVehicle vehicle in m_ListOfVehicleInGarage)
+            {
+                if (vehicle.VehicleInGarage.LicenseNumber == i_LicenseNumber)
+                {
+                    vehicleData.AppendLine(String.Format("License number: {0}", i_LicenseNumber));
+                    vehicleData.AppendLine(String.Format("Model name: {0}", vehicle.VehicleInGarage.ModelName));
+                    vehicleData.AppendLine(String.Format("Owner name: {0}", vehicle.OwnerName));
+                    vehicleData.AppendLine(String.Format("Vehicle status in garage: {0}", vehicle.Status.ToString()));
+                    vehicleData.AppendLine(String.Format("Manufacturer name of wheels: {0}", vehicle.VehicleInGarage.ListOfWheel[0].ManufacturerName));
+                    vehicleData.AppendLine(String.Format("Air Pressuer: {0}", vehicle.VehicleInGarage.ListOfWheel[0].CurrAirPressuer));
+                    vehicle.VehicleInGarage.AddRestDetails(vehicle.VehicleInGarage.MyEngine, vehicleData);
+                }
+            }
+            return vehicleData;
         }
     }
 }

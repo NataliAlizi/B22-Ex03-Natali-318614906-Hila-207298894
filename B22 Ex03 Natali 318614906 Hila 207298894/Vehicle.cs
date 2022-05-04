@@ -54,5 +54,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         }
 
         public abstract bool ValidTypeOfFuel(Engine.eFuelType i_WantedFuelType);
+
+        public abstract void AddRestDetails(Engine i_engine, StringBuilder io_vehicleData);
     }
 }

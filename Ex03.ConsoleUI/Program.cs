@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B22_Ex03_Natali_318614906_Hila_207298894
+namespace Ex03.ConsoleUI
 {
     public class Program
     {
@@ -31,12 +31,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
 
             garage.RefulingVehicle("123456", (Engine.eFuelType)1, 20);
             garage.RefulingVehicle("1234567", (Engine.eFuelType)0, 20);
-
-
-
-
         }
 
     }
-
 }

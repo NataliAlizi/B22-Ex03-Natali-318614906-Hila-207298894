@@ -30,6 +30,11 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             }
         }
 
+        public override float CurrAmountOfFuelOrBattery()
+        {
+            return m_CurrBatteryTime;
+        }
+
         public float CurrBatteryTime
         {
             get { return m_CurrBatteryTime; }

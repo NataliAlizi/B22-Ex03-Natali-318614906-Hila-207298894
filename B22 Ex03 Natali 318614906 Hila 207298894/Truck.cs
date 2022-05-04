@@ -46,5 +46,16 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
 
             return answer;
         }
+
+        public override void AddRestDetails(Engine i_engine, StringBuilder io_vehicleData)
+        {
+            io_vehicleData.AppendLine(String.Format("Fuel type: {0}", eTruckData.Soler.ToString()));
+            io_vehicleData.AppendLine(String.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
+            io_vehicleData.AppendLine(String.Format("Number of wheels: {0}", eTruckData.NumberOfWheels.ToString()));
+            io_vehicleData.AppendLine(String.Format("Max air pressuer: {0}", eTruckData.MaxAirPressuer.ToString()));
+            io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", eTruckData.MaxAmountOfFuelInCm.ToString()));
+            io_vehicleData.AppendLine(String.Format("Drive refrigerated contents: {0}", m_DriveRefrigeratedContents.ToString()));
+            io_vehicleData.AppendLine(String.Format("Cargo capacity: {0}", m_CargoCapacity));
+        }
     }
 }
