@@ -8,10 +8,6 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
 {
     public class FuelType : Engine
     {
-        //public enum eFuelType
-        //{
-        //    Soler, Octan95, Octan96, Octan98
-        //}
 
         private float m_CurrAmountOfFuel;
         private float m_MaxAmountOfFuel;

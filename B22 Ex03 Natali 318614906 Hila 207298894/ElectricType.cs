@@ -29,13 +29,6 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 throw valueOutOfRangeException;
             }
         }
-        //public override bool ValidTypeOfFuelForThisVehicle(Engine.eFuelType i_WantedFuelType)
-        //{
-        //    bool answer = false;
-        //    if ((int)i_WantedFuelType == 0)
-        //        answer = true;
-        //    return answer;
-        //}
 
         public float CurrBatteryTime
         {

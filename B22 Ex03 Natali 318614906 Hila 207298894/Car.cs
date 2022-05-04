@@ -49,16 +49,6 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             set { m_NumberOfDoors = value; }
         }
 
-        //public override bool ValidTypeOfFuelForThisVehicle(Engine.eFuelType i_WantedFuelType)
-        //{
-        //    bool answer = false;
-        //    if (i_WantedFuelType.ToString() == FuelCarData.Octan95.ToString())
-        //    {
-        //        answer = true;
-        //    }
-
-        //    return answer;
-        //}
         public override bool ValidTypeOfFuel(Engine.eFuelType i_WantedFuelType)
         {
             bool answer = false;
