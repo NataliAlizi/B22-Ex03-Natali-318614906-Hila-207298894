@@ -6,32 +6,18 @@ using System.Threading.Tasks;
 
 namespace B22_Ex03_Natali_318614906_Hila_207298894
 {
-    public class ElectricType : Vehicle
+    public class ElectricType : Engine
     {
         private float m_CurrBatteryTime;
         private float m_MaxBatteryTime;
 
-        public ElectricType(float i_CurrBatteryTime, float i_MaxBatteryTime, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel) :
-            base(i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
+        public ElectricType(float i_CurrBatteryTime, float i_MaxBatteryTime)
         {
             m_MaxBatteryTime = i_MaxBatteryTime;
             m_CurrBatteryTime = i_CurrBatteryTime;
         }
 
-        //public void BatteryCharging(float i_WantedAmountOfBattery)
-        //{
-        //    if (this.m_CurrBatteryTime + i_WantedAmountOfBattery <= this.m_MaxBatteryTime)
-        //    {
-        //        this.m_CurrBatteryTime += i_WantedAmountOfBattery;
-        //    }
-        //    else
-        //    {
-        //        ValueOutOfRangeException valueOutOfRangeException = new ValueOutOfRangeException(string.Format("Your max Battery capacity is {0}, and your current Battery capacity is {1}, so you cant refueling {2} amount.",m_MaxBatteryTime, m_CurrBatteryTime, i_WantedAmountOfBattery), m_MaxBatteryTime, 0);
-        //        throw valueOutOfRangeException;
-        //    }
-        //}
-
-        public override void Refueling(Vehicle.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething)
+        public override void Refueling(Vehicle i_Vehicle, Engine.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething)
         {
             if (this.m_CurrBatteryTime + i_WantedAmountOfsomething <= this.m_MaxBatteryTime)
             {
@@ -43,6 +29,13 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 throw valueOutOfRangeException;
             }
         }
+        //public override bool ValidTypeOfFuelForThisVehicle(Engine.eFuelType i_WantedFuelType)
+        //{
+        //    bool answer = false;
+        //    if ((int)i_WantedFuelType == 0)
+        //        answer = true;
+        //    return answer;
+        //}
 
         public float CurrBatteryTime
         {

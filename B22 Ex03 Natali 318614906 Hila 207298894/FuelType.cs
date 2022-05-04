@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace B22_Ex03_Natali_318614906_Hila_207298894
 {
-    public class FuelType : Vehicle
+    public class FuelType : Engine
     {
         //public enum eFuelType
         //{
@@ -16,8 +16,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         private float m_CurrAmountOfFuel;
         private float m_MaxAmountOfFuel;
 
-        public FuelType(string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel) :
-            base(i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
+        public FuelType(string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel)
         {
             m_CurrAmountOfFuel = i_CurrAmountOfFuel;
             m_MaxAmountOfFuel = i_MaxAmountOfFuel;
@@ -35,11 +34,11 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             set { m_MaxAmountOfFuel = value; }
         }
 
-        public override void Refueling(Vehicle.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething)
+        public override void Refueling(Vehicle i_Vehicle, Engine.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething)
         {
             if (this.m_CurrAmountOfFuel + i_WantedAmountOfsomething <= this.m_MaxAmountOfFuel)
             {
-                if (this.ValidTypeOfFuelForThisVehicle(i_WantedFuelType))
+                if (ValidTypeOfFuelForThisVehicle(i_WantedFuelType, i_Vehicle))
                 {
                     this.m_CurrAmountOfFuel += i_WantedAmountOfsomething;
                 }
@@ -56,9 +55,10 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             }
         }
 
-        public virtual bool ValidTypeOfFuelForThisVehicle(FuelType.eFuelType i_WantedFuelType)//לבדוק איך משנים
+        public bool ValidTypeOfFuelForThisVehicle(Engine.eFuelType i_WantedFuelType,Vehicle i_Vehicle)
         {
-            return true;
+            return i_Vehicle.ValidTypeOfFuel(i_WantedFuelType);
         }
+
     }
 }

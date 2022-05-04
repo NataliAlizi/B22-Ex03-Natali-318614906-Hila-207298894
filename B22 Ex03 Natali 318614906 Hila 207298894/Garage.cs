@@ -42,14 +42,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 }
             }
         }
-        public Vehicle cdmk()
-        {
-            List<Wheel> w1 = new List<Wheel>();
-            for (int k = 0; k < 16; k++)
-                w1.Add(new Wheel("cc", 2.4f, 24));
-            Vehicle asa = new Truck(true, 30, "octan95", 50, 70, "kia", "1234a567", 0.2f, w1);
-            return asa;
-        }
+       
         public void WheelInflationToMax(string i_LicenseNumber)
         {
             float howMuchToFill = 0;
@@ -75,7 +68,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 {
                     isExist = true;
                     vehicle.Status = (GarageDataPerVehicle.eVehicleStatus)Enum.Parse(typeof(GarageDataPerVehicle.eVehicleStatus), "InRepair"); //check exeption of parse!!!
-                    break;//check
+                    break;
                 }
             }
             if (!isExist)

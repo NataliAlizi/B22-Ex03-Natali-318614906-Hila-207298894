@@ -10,34 +10,22 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
     {
         static public void Main()
         {
-            Car car = new Car();
-            MotorCycle motor = new MotorCycle();
+            //Car car = new Car();
+            //MotorCycle motor = new MotorCycle();
             List<Wheel> w = new List<Wheel>();
-            for (int k = 0; k < 2; k++)
+            for (int k = 0; k < 4; k++)
                 w.Add(new Wheel("cc", 2.4f, 29));
             List<Wheel> w1 = new List<Wheel>();
             for (int k = 0; k < 16; k++)
                 w1.Add(new Wheel("cc", 2.4f, 24));
 
-            Vehicle fc = new FuelCar(car, "octan95", 50, 70, "kia", "123456", 0.2f, w);
-            Vehicle moto = new ElectricMotorcycle(motor, 10, 30, "nana", "123445", 8, w);
-            moto.Refueling((Vehicle.eFuelType)0, 10);//none becuse electric
-           
-            Vehicle fsc = new Truck(true,30,"octan95", 50, 70, "kia", "1234567", 0.2f, w1);
-            Vehicle asa = new Truck(true, 30, "octan95", 50, 70, "kia", "1234a567", 0.2f, w1);
-            Garage garage=new Garage();
-            garage.AddVehicle("natali","22135",fc);
-            garage.AddVehicle("hila","4564",fsc); 
-            garage.AddVehicle("hila", "4564", asa);
+            Engine engine1 = new ElectricType(100, 150);
+            Vehicle vehicle1 = new Car("Kia", "123456", 100, w, engine1, 5, 3);
+            Engine engine = new FuelType("Soler", 100, 150);
+            Vehicle vehicle = new Truck("nshavo", "123456", 10, w1, engine, true, 100);
+            vehicle1.MyEngine.Refueling(vehicle1, 0, 20);
+            vehicle.MyEngine.Refueling(vehicle, (Engine.eFuelType)1, 10);
 
-            garage.ChangeVehicleStatus("123456", "Fixed");
-            garage.ChangeVehicleStatus("1234567", "Fixed");
-
-            List<string> nnn = garage.DisplayLicenseNumber("All", true);
-            List<string> mm = garage.DisplayLicenseNumber("Fixed", false);
-
-
-            Vehicle c = garage.cdmk();
 
 
         }

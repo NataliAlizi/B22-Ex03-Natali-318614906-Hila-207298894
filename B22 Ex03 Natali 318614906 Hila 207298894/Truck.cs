@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace B22_Ex03_Natali_318614906_Hila_207298894
 {
-    public class Truck : FuelType
+    public class Truck : Vehicle
     {
         private bool m_DriveRefrigeratedContents;
         private float m_CargoCapacity;
@@ -16,8 +16,15 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             NumberOfWheels = 16, MaxAirPressuer = 24, MaxAmountOfFuelInCm = 120000, Soler
         }
 
-        public Truck(bool i_DriveRefrigeratedContents, float i_CargoCapacity, string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel) :
-            base(i_FuelType, i_CurrAmountOfFuel, i_MaxAmountOfFuel, i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
+
+        //private string m_ModelName;
+        //private string m_LicenseNumber;
+        //private float m_RemainEnergyPercents;
+        //private List<Wheel> m_ListOfWheel;
+        //Engine m_engine;
+
+        public Truck(string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel, Engine i_engine,bool i_DriveRefrigeratedContents, float i_CargoCapacity) :
+            base(i_engine, i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
         {
             m_DriveRefrigeratedContents = i_DriveRefrigeratedContents;
             m_CargoCapacity = i_CargoCapacity;
@@ -35,7 +42,18 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             set { m_CargoCapacity = value; }
         }
 
-        public override bool ValidTypeOfFuelForThisVehicle(FuelType.eFuelType i_WantedFuelType)
+        //public override bool ValidTypeOfFuelForThisVehicle(Engine.eFuelType i_WantedFuelType)
+        //{
+        //    bool answer = false;
+        //    if (i_WantedFuelType.ToString() == Truck.eTruckData.Soler.ToString())
+        //    {
+        //        answer = true;
+        //    }
+
+        //    return answer;
+        //}
+
+        public override bool ValidTypeOfFuel(Engine.eFuelType i_WantedFuelType)
         {
             bool answer = false;
             if (i_WantedFuelType.ToString() == Truck.eTruckData.Soler.ToString())
