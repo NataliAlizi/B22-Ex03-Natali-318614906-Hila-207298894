@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B22_Ex03_Natali_318614906_Hila_207298894
+namespace Ex03.GarageLogic
 {
     public class Car : Vehicle
     {
@@ -12,10 +12,13 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         {
             NumberOfWheels = 4, MaxAirPressuer = 29, MaxBatteryTimeInMin = 198
         }
-        public enum FuelCarData
+
+        public enum eFuelCarData
         {
-            MaxAmountOfFuelInCm = 38000, Octan95
+            MaxAmountOfFuelInCm = 3800, Octan95
         }
+
+        public Car() { }
 
         public Car(string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel, Engine i_engine, int i_NumberOfDoors, int i_Color) :
             base(i_engine, i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
@@ -51,7 +54,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         public override bool ValidTypeOfFuel(Engine.eFuelType i_WantedFuelType)
         {
             bool answer = false;
-            if (i_WantedFuelType.ToString() == FuelCarData.Octan95.ToString())
+            if (i_WantedFuelType.ToString() == eFuelCarData.Octan95.ToString())
             {
                 answer = true;
             }
@@ -69,15 +72,90 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             }
             else //Fuel type
             {
-                io_vehicleData.AppendLine(String.Format("Fuel type: {0}", FuelCarData.Octan95.ToString()));
+                io_vehicleData.AppendLine(String.Format("Fuel type: {0}", eFuelCarData.Octan95.ToString()));
                 io_vehicleData.AppendLine(String.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
-                io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", FuelCarData.MaxAmountOfFuelInCm.ToString()));
+                io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", eFuelCarData.MaxAmountOfFuelInCm.ToString()));
             }
 
             io_vehicleData.AppendLine(String.Format("Number of wheels: {0}", eElectricCarData.NumberOfWheels.ToString()));
             io_vehicleData.AppendLine(String.Format("Max air pressuer: {0}", eElectricCarData.MaxAirPressuer.ToString()));
             io_vehicleData.AppendLine(String.Format("Car color: {0}", m_Color));
             io_vehicleData.AppendLine(String.Format("Number of doors: {0}", m_NumberOfDoors));
+        }
+
+        public override void SetWheelAndCheckAnswer(List<string> i_AnswerForVehicle, int i_Index, ref bool io_TheRightAnswer)
+        {
+            io_TheRightAnswer = false;
+            int sizeNumberOfWheels = (int)eElectricCarData.NumberOfWheels;
+            int currAir = 0;
+            if (i_Index == 0)
+            {
+                io_TheRightAnswer = true;
+            }
+            else if (i_Index == 1)
+            {
+                io_TheRightAnswer = int.TryParse(i_AnswerForVehicle[1], out currAir);
+                if (currAir <= (int)eElectricCarData.MaxAirPressuer && io_TheRightAnswer)
+                {
+                    io_TheRightAnswer = true;
+                }
+            }
+            ///מוסיף את הגלגלים לרכב !! 
+            if (i_Index == 1)
+            {
+                Wheel wheel = new Wheel(i_AnswerForVehicle[0], float.Parse(i_AnswerForVehicle[1]), (int)eElectricCarData.MaxAirPressuer);
+                this.ListOfWheel = new List<Wheel>();
+                for (int i = 0; i < sizeNumberOfWheels; i++)
+                {
+                    this.ListOfWheel.Add(wheel);
+                }
+            }
+        }
+
+        public override void SetQuestionForVehicle(List<string> i_QuestionForVehicle)
+        {
+            i_QuestionForVehicle.Add("Whats your car color ?  0)Red 1)White 2)Green 3)Blue");
+            i_QuestionForVehicle.Add("How much doors do you have?  2)Two 3)Three 4)Four 5)Five");
+        }
+
+        public override void SetAnswerForVehicle(List<string> i_AnswerForVehicle)
+        {
+            this.Color = (eColor)Enum.Parse(typeof(eColor), i_AnswerForVehicle[3]);///לבדוק מה לעשות. הערך בטוח נכון 
+            this.NumberOfDoors=(eNumberOfDoors)Enum.Parse(typeof(eNumberOfDoors), i_AnswerForVehicle[4]);
+        }
+
+        public override void CheckAnswerForVehicle(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)
+        {
+            o_TheRightAnswer = false;
+            if (i_Index == 3)
+            {
+                if (i_AnswerForVehicle[3] == "1" || i_AnswerForVehicle[3] == "2" ||
+                    i_AnswerForVehicle[3] == "0" || i_AnswerForVehicle[3] == "3")
+                {
+                    o_TheRightAnswer = true;
+                }
+            }
+            else if (i_Index == 4)
+            {
+                if (i_AnswerForVehicle[4] == "2" || i_AnswerForVehicle[4] == "3" ||
+                    i_AnswerForVehicle[4] == "4" || i_AnswerForVehicle[4] == "5")
+                {
+                    o_TheRightAnswer = true;
+                }
+            }
+        }
+        public override void SetMaxAmountOfFuelOrBattery()
+        {
+            float returnAnswer = 0;
+            if(this.MyEngine is FuelType)
+            {
+                returnAnswer = (int)eFuelCarData.MaxAmountOfFuelInCm;
+            }
+            else
+            {
+                returnAnswer = (int)eElectricCarData.MaxBatteryTimeInMin;
+            }
+            this.MyEngine.SetMaxFuelOrBattery(returnAnswer);
         }
     }
 }

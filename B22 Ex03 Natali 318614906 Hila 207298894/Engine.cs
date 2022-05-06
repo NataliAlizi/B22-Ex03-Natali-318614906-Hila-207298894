@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B22_Ex03_Natali_318614906_Hila_207298894
+namespace Ex03.GarageLogic
 {
     abstract public class Engine
     {
@@ -13,7 +13,13 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             none, Soler, Octan95, Octan96, Octan98
         }
 
+        public abstract void SetMaxFuelOrBattery(float i_Max);
+
         public abstract void Refueling(Vehicle i_Vehicle, Engine.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething);
         public abstract float CurrAmountOfFuelOrBattery();
+
+        public abstract void SetQuestionForVehicleType(List<string> i_QuestionForVehicle);
+
+        public abstract void CheckAnswerForVehicleType(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer);
     }
 }

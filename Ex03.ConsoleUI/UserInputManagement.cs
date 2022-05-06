@@ -8,84 +8,140 @@ namespace Ex03.ConsoleUI
 {
     public class UserInputManagement
     {
-        private static void getNewVehicleAndHisData()
+
+        private Ex03.GarageLogic.Garage m_Garage = new Ex03.GarageLogic.Garage();
+        private Ex03.GarageLogic.GarageMeneger m_GarageMeneger = new Ex03.GarageLogic.GarageMeneger();
+
+        public void GetEngine(ref int io_TypeOfEngine, Ex03.GarageLogic.Vehicle io_Vehicle)
+        {
+            if (io_Vehicle is Ex03.GarageLogic.Truck)
+            {
+                io_TypeOfEngine = 1;
+            }
+            else
+            {
+                io_TypeOfEngine = getAndCheckFuelOrElectricType();
+            }
+            if (io_TypeOfEngine == 1)
+            {
+                io_Vehicle.MyEngine = new Ex03.GarageLogic.FuelType();
+            }
+            else
+            {
+                io_Vehicle.MyEngine = new Ex03.GarageLogic.ElectricType();
+            }
+
+        }
+
+        public Ex03.GarageLogic.Vehicle GetNewVehicle(ref int io_TypeOfVehicle)
+        {
+            io_TypeOfVehicle = getAndCheckValidVehicleType();
+            return m_GarageMeneger.MakeNewVehicle(io_TypeOfVehicle);
+        }
+
+        public void GetNewVehicleAndHisData()
         {
             int vehicleTypeInInt = 0, fuelOrElectricInInt = 0;
             string ownerName = string.Empty, ownerPhone = string.Empty, modelName = string.Empty, licenseNumber = string.Empty,
                 wheelManufacturerName = string.Empty;
-            float leftEnergy = 0, currAirPressuer= 0;
+            List<string> questionForVehicle = new List<string>();
 
             Console.WriteLine(string.Format("Hello, welcome to our garage"));
 
-            vehicleTypeInInt = getAndCheckValidVehicleType();
-            if (vehicleTypeInInt == 1 || vehicleTypeInInt == 2) //Car or motorcycle
-            {
-                fuelOrElectricInInt = getAndCheckFuelOrElectricType();
-            }
-            getOwnerDetails(ownerName, ownerPhone);
-            getModelNameAndLicenseNumber(modelName, licenseNumber);
-            //leftEnergy = getLeftEnergy(vehicleTypeInInt, fuelOrElectricInInt);
-            currAirPressuer = getCurrAirPressuerAndWheelManufacturerName(wheelManufacturerName);
+            Ex03.GarageLogic.Vehicle vehicle = GetNewVehicle(ref vehicleTypeInInt);
+            GetEngine(ref fuelOrElectricInInt, vehicle);
+
+            getOwnerDetails(ref ownerName, ref ownerPhone);
+            getModelNameAndLicenseNumber(ref modelName, ref licenseNumber);
+
+            m_Garage.SetQuestion(questionForVehicle, vehicle);
+            AskQuestionAndCheckAnswer(questionForVehicle, vehicle);
+            setData(vehicle, licenseNumber, modelName);
+
         }
 
-        private static int getAndCheckValidVehicleType()
+        private void setData(Ex03.GarageLogic.Vehicle io_vehicle, string i_LlicenseNumber, string i_ModelName)
         {
-            bool validInput = false;
-            int choiceNumber = 0;
+            io_vehicle.LicenseNumber = i_LlicenseNumber;
+            io_vehicle.ModelName = i_ModelName;
+
+        }
+
+        private void AskQuestionAndCheckAnswer(List<string> i_QuestionForVehicle, Ex03.GarageLogic.Vehicle io_Vehicle)
+        {
+            int index = 0;
+            string answer = string.Empty;
+            bool answerOkForThisQuestion = false;
+            List<string> answerList = new List<string>();
+            foreach (string question in i_QuestionForVehicle)
+            {
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine(question);
+                    answer = Console.ReadLine();
+                    answerList.Add(answer);
+                    m_Garage.CheckAnswer(answerList, index, ref answerOkForThisQuestion, io_Vehicle);
+                    if (answerOkForThisQuestion)
+                    {
+                        index++;
+                    }
+                }
+                while (!answerOkForThisQuestion);
+
+            }
+            io_Vehicle.SetAnswerForVehicle(answerList);
+        }
+
+        private int getAndCheckValidVehicleType()
+        {
+            bool validInput = false, validParse = false;
+            int choiceNumber = 0, index = 0;
             string vehicleType;
-           
+            StringBuilder typeOfVehicle = new StringBuilder("Please enter your vehicle type  ");
+            foreach (Ex03.GarageLogic.GarageMeneger.eVehicleType vehicleTypes in Enum.GetValues(typeof(Ex03.GarageLogic.GarageMeneger.eVehicleType)))
+            {
+                typeOfVehicle.Append(++index + ") " + vehicleTypes + " ");
+            }
             do
             {
-                Console.WriteLine(string.Format("Please enter your vehicle type:{0}1.Car{0}2.Motorcycle{0}3.Truck", Environment.NewLine));
+                Console.Clear();//לבדוק אם יש משהו שזה לא של הקונסול
+                Console.WriteLine(typeOfVehicle);
                 vehicleType = Console.ReadLine();
-                try
+                validParse = int.TryParse(vehicleType, out choiceNumber);//לעדכן את הילה שזה לא נכון מה שהיא עשתה פה+אין צורך באקספשניין כי זה מה שהטרי פרס בודק
+                if (choiceNumber >= 1 && choiceNumber <= (Enum.GetNames(typeof(Ex03.GarageLogic.GarageMeneger.eVehicleType)).Length))
                 {
-                    validInput = int.TryParse(vehicleType, out choiceNumber);
-                    if (choiceNumber == 1 || choiceNumber == 2 || choiceNumber == 3)
-                    {
-                        validInput = true;
-                    }
-               
-                }
-                catch (FormatException ex)
-                {
-                    throw ex;
+                    validInput = true;
                 }
             }
-            while (!validInput);
+            while (!validInput || !validParse);
 
             return choiceNumber;
         }
 
-        private static int getAndCheckFuelOrElectricType()
+        private int getAndCheckFuelOrElectricType()
         {
-            bool validInput = false;
+            bool validInput = false, validParse = false;
             int choiceNumber = 0;
             string vehicleType;
-
             do
             {
                 Console.WriteLine(string.Format("Press 1 for fuel type, 2 for electric type"));
                 vehicleType = Console.ReadLine();
-                try
+
+                validParse = int.TryParse(vehicleType, out choiceNumber);
+                if ((choiceNumber == 1 || choiceNumber == 2) && validParse)
                 {
-                    validInput = int.TryParse(vehicleType, out choiceNumber);
-                    if (choiceNumber == 1 || choiceNumber == 2)
-                    {
-                        validInput = true;
-                    }
+                    validInput = true;
                 }
-                catch (FormatException ex)
-                {
-                    throw ex;
-                }
+
             }
-            while (!validInput);
+            while (!validInput || !validParse);
 
             return choiceNumber;
         }
 
-        private static void getOwnerDetails(string o_OwnerName, string o_OwnerPhoneNumber)
+        private void getOwnerDetails(ref string o_OwnerName, ref string o_OwnerPhoneNumber)
         {
             bool validNumber = false;
             Console.WriteLine(string.Format("Please enter your name"));
@@ -102,14 +158,14 @@ namespace Ex03.ConsoleUI
             while (!validNumber);
         }
 
-        private static bool validPhoneNumber(string i_PhoneNumber)
+        private bool validPhoneNumber(string i_PhoneNumber)
         {
             bool answer = true;
             for (int i = 0; i < i_PhoneNumber.Length; i++)
             {
                 if ((i == 0 && i_PhoneNumber[i] != '0') || (i == 1 && i_PhoneNumber[i] != '5') ||
-                    (i == 2 && (i_PhoneNumber[i] != 0 || i_PhoneNumber[i] != 2 || i_PhoneNumber[i] != 3 || i_PhoneNumber[i] != 4 || i_PhoneNumber[i] != 5))
-                    || (i_PhoneNumber[i] < '0' || i_PhoneNumber[i] > '9'))
+                    (i == 2 && (i_PhoneNumber[i] != 0 && i_PhoneNumber[i] != 2 && i_PhoneNumber[i] != 3 && i_PhoneNumber[i] != 4 && i_PhoneNumber[i] != 5))
+                    && (i_PhoneNumber[i] < '0' || i_PhoneNumber[i] > '9'))
                 {
                     answer = false;
                 }
@@ -117,7 +173,7 @@ namespace Ex03.ConsoleUI
             return answer;
         }
 
-        private static void getModelNameAndLicenseNumber(string o_ModelName, string o_LicenseNumber)
+        private void getModelNameAndLicenseNumber(ref string o_ModelName, ref string o_LicenseNumber)
         {
 
             bool validLicenseNumber = true;
@@ -147,26 +203,26 @@ namespace Ex03.ConsoleUI
             while (validLicenseNumber == false);
         }
 
-        private static float getCurrAirPressuerAndWheelManufacturerName(string o_WheelManufacturerName)
-        {
-            float currAirPressuer = 0f;
-            bool validAirPressuer = false;
-            Console.WriteLine(string.Format("Please enter your wheel manufacturer name"));
-            o_WheelManufacturerName = Console.ReadLine();
+        //private static float getCurrAirPressuerAndWheelManufacturerName(string o_WheelManufacturerName)
+        //{
+        //    float currAirPressuer = 0f;
+        //    bool validAirPressuer = false;
+        //    Console.WriteLine(string.Format("Please enter your wheel manufacturer name"));
+        //    o_WheelManufacturerName = Console.ReadLine();
 
-            do
-            {
+        //    do
+        //    {
 
-            }
-            while()
-            return currAirPressuer;
-        }
+        //    }
+        //    while()
+        //    return currAirPressuer;
+        //}
 
-    //    private static float getLeftEnergy(int i_VehicleType, int i_FuelOrElectric)  /// 1=car, 2=motorcycle, 3=truck / 1=fuel, 2=electric
-    //    {
-    //        string userInput = string.Empty;
-    //        float leftEnergy = 0;
-    //        bool validNumber = false;
+        //    private static float getLeftEnergy(int i_VehicleType, int i_FuelOrElectric)  /// 1=car, 2=motorcycle, 3=truck / 1=fuel, 2=electric
+        //    {
+        //        string userInput = string.Empty;
+        //        float leftEnergy = 0;
+        //        bool validNumber = false;
 
         //        do
         //        {
@@ -191,3 +247,4 @@ namespace Ex03.ConsoleUI
         //    }
         //}
     }
+}

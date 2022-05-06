@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B22_Ex03_Natali_318614906_Hila_207298894
+namespace Ex03.GarageLogic
 {
     abstract public class Vehicle
     {
@@ -13,6 +13,8 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         private float m_RemainEnergyPercents;
         private List<Wheel> m_ListOfWheel;
         Engine m_engine;
+
+        public Vehicle() { }
 
         public Vehicle(Engine i_engine, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel)
         {
@@ -56,5 +58,21 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         public abstract bool ValidTypeOfFuel(Engine.eFuelType i_WantedFuelType);
 
         public abstract void AddRestDetails(Engine i_engine, StringBuilder io_vehicleData);
+
+        public abstract void SetQuestionForVehicle(List<string> i_QuestionForVehicle);
+
+        public abstract void CheckAnswerForVehicle(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer);
+
+        public abstract void SetWheelAndCheckAnswer(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer);
+
+        public abstract void SetMaxAmountOfFuelOrBattery();
+
+        public abstract void SetAnswerForVehicle(List<string> i_AnswerForVehicle);
+
+        public void SetQuestionForWheels(List<string> i_QuestionForVehicle)
+        {
+            i_QuestionForVehicle.Add("Whats your Wheel Manufacturer Name ?");
+            i_QuestionForVehicle.Add("Whats your current Air Pressuer ?");
+        }
     }
 }

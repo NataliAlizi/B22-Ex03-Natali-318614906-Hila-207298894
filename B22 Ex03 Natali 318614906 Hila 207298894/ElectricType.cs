@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B22_Ex03_Natali_318614906_Hila_207298894
+namespace Ex03.GarageLogic
 {
     public class ElectricType : Engine
     {
         private float m_CurrBatteryTime;
         private float m_MaxBatteryTime;
 
-        public ElectricType(float i_CurrBatteryTime, float i_MaxBatteryTime)
-        {
-            m_MaxBatteryTime = i_MaxBatteryTime;
-            m_CurrBatteryTime = i_CurrBatteryTime;
-        }
+        public ElectricType() { }
+        //public ElectricType(float i_CurrBatteryTime, float i_MaxBatteryTime)
+        //{
+        //    m_MaxBatteryTime = i_MaxBatteryTime;
+        //    m_CurrBatteryTime = i_CurrBatteryTime;
+        //}
 
         public override void Refueling(Vehicle i_Vehicle, Engine.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething)
         {
@@ -45,6 +46,25 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         {
             get { return m_MaxBatteryTime; }
             set { m_MaxBatteryTime = value; }
+        }
+
+        public override void SetQuestionForVehicleType(List<string> i_QuestionForVehicle)
+        {
+            i_QuestionForVehicle.Add("Whats your current Battery time left ? (in min) :");
+        }
+
+        public override void CheckAnswerForVehicleType(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)
+        {
+            o_TheRightAnswer = false;
+            if (this.MaxBatteryTime >= float.Parse(i_AnswerForVehicle[2]))
+            {
+                o_TheRightAnswer = true;
+            }
+        }
+
+        public override void SetMaxFuelOrBattery(float i_MaxOfBattery)
+        {
+            m_MaxBatteryTime = i_MaxOfBattery;
         }
     }
 }

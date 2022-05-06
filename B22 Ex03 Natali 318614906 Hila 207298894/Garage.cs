@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B22_Ex03_Natali_318614906_Hila_207298894
+namespace Ex03.GarageLogic
 {
     public class Garage
     {
@@ -115,6 +115,34 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
                 }
             }
             return vehicleData;
+        }
+
+
+        public void SetQuestion(List<string> i_QuestionForVehicle, Vehicle i_Vehicle)
+        {
+            i_Vehicle.SetQuestionForWheels(i_QuestionForVehicle);
+
+            i_Vehicle.MyEngine.SetQuestionForVehicleType(i_QuestionForVehicle);///יוצר את השאלות על הדלק\בטריה
+
+            i_Vehicle.SetQuestionForVehicle(i_QuestionForVehicle);///יוצר את השאלות המיוחדות על כל רכב ורכב
+
+        }
+
+        public void CheckAnswer(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer, Vehicle i_Vehicle)
+        {
+            if (i_Index == 0 || i_Index == 1)
+            {
+                i_Vehicle.SetWheelAndCheckAnswer(i_AnswerForVehicle, i_Index, ref o_TheRightAnswer);
+            }
+            else if (i_Index == 2)
+            {
+                i_Vehicle.SetMaxAmountOfFuelOrBattery();
+                i_Vehicle.MyEngine.CheckAnswerForVehicleType(i_AnswerForVehicle, i_Index, ref o_TheRightAnswer);
+            }
+            else
+            {
+                i_Vehicle.CheckAnswerForVehicle(i_AnswerForVehicle, i_Index, ref o_TheRightAnswer);
+            }
         }
     }
 }

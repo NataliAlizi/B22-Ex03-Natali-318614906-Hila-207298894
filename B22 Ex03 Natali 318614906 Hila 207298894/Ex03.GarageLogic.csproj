@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7AE6888C-3695-4CEE-BFC4-1C0DEE8B4072}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>B22_Ex03_Natali_318614906_Hila_207298894</RootNamespace>
-    <AssemblyName>B22 Ex03 Natali 318614906 Hila 207298894</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Ex03.GarageLogic</RootNamespace>
+    <AssemblyName>Ex03.GarageLogic</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B22_Ex03_Natali_318614906_Hila_207298894
+namespace Ex03.GarageLogic
 {
     public class MotorCycle:Vehicle
     {
@@ -15,9 +15,10 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
 
         public enum eFuelMotorCycleData
         {
-           maxAmountOfFuelInCm = 6200, Octan98
+           MaxAmountOfFuelInCm = 6200, Octan98
         }
 
+        public MotorCycle() { }
         public MotorCycle(int i_LicenseType,int i_EngineCapacity,string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel, Engine i_engine) :
             base(i_engine, i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
         {
@@ -67,7 +68,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             {
                 io_vehicleData.AppendLine(String.Format("Fuel type: {0}", eFuelMotorCycleData.Octan98.ToString()));
                 io_vehicleData.AppendLine(String.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
-                io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", eFuelMotorCycleData.maxAmountOfFuelInCm.ToString()));
+                io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", eFuelMotorCycleData.MaxAmountOfFuelInCm.ToString()));
             }
 
             io_vehicleData.AppendLine(String.Format("Number of wheels: {0}", eElectricMotorcycleData.NumberOfWheels.ToString()));
@@ -75,6 +76,79 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             io_vehicleData.AppendLine(String.Format("License type: {0}", m_LicenseType.ToString()));
             io_vehicleData.AppendLine(String.Format("Engine capacity: {0}", m_EngineCapacity));
 
+        }
+
+        public override void SetQuestionForVehicle(List<string> i_QuestionForVehicle)
+        {
+            i_QuestionForVehicle.Add("Whats your licens type? 0)A 1)A1 2)B2 3)BB");
+            i_QuestionForVehicle.Add("Type your Engine volume in cc :");
+        }
+
+        public override void SetAnswerForVehicle(List<string> i_AnswerForVehicle)
+        {
+            this.LicenseType = (eLicenseType)Enum.Parse(typeof(eLicenseType), i_AnswerForVehicle[3]);
+            this.EngineCapacity = int.Parse(i_AnswerForVehicle[4]);
+        }
+
+        public override void CheckAnswerForVehicle(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)
+        {
+            o_TheRightAnswer = false;
+            if (i_Index == 3)
+            {
+                if (i_AnswerForVehicle[3] == "0" || i_AnswerForVehicle[3] == "1" ||
+                    i_AnswerForVehicle[3] == "2" || i_AnswerForVehicle[3] == "3")
+                {
+                    o_TheRightAnswer = true;
+                }
+            }
+            else if (i_Index == 4)
+            {
+                //לבדוק שזה מספר
+                o_TheRightAnswer = true;
+            }
+        }
+
+        public override void SetWheelAndCheckAnswer(List<string> i_AnswerForVehicle, int i_Index, ref bool io_TheRightAnswer)
+        {
+            io_TheRightAnswer = false;
+            int sizeNumberOfWheels = (int)eElectricMotorcycleData.NumberOfWheels;
+            int currAir = 0;
+            if (i_Index == 0)
+            {
+                io_TheRightAnswer = true;
+            }
+            else if (i_Index == 1)
+            {
+                io_TheRightAnswer = int.TryParse(i_AnswerForVehicle[1], out currAir);
+                if (currAir <= (int)eElectricMotorcycleData.MaxAirPressuer && io_TheRightAnswer)
+                {
+                    io_TheRightAnswer = true;
+                }
+            }
+            ///מוסיף את הגלגלים לרכב !! 
+            if (i_Index == 1)
+            {
+                Wheel wheel = new Wheel(i_AnswerForVehicle[0], float.Parse(i_AnswerForVehicle[1]), (int)eElectricMotorcycleData.MaxAirPressuer);
+                this.ListOfWheel = new List<Wheel>();
+                for (int i = 0; i < sizeNumberOfWheels; i++)
+                {
+                    this.ListOfWheel.Add(wheel);
+                }
+            }
+        }
+
+        public override void SetMaxAmountOfFuelOrBattery()
+        {
+            float returnAnswer = 0;
+            if (this.MyEngine is FuelType)
+            {
+                returnAnswer = (int)eFuelMotorCycleData.MaxAmountOfFuelInCm;
+            }
+            else
+            {
+                returnAnswer = (int)eElectricMotorcycleData.MaxBatteryTimeInMin;
+            }
+            this.MyEngine.SetMaxFuelOrBattery(returnAnswer);
         }
     }
 }

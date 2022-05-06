@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B22_Ex03_Natali_318614906_Hila_207298894
+namespace Ex03.GarageLogic
 {
     public class FuelType : Engine
     {
@@ -12,6 +12,7 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
         private float m_CurrAmountOfFuel;
         private float m_MaxAmountOfFuel;
 
+        public FuelType() { }
         public FuelType(string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel)
         {
             m_CurrAmountOfFuel = i_CurrAmountOfFuel;
@@ -51,7 +52,12 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             }
         }
 
-        public bool ValidTypeOfFuelForThisVehicle(Engine.eFuelType i_WantedFuelType,Vehicle i_Vehicle)
+        public override void SetMaxFuelOrBattery(float i_MaxAmountOfFuel)
+        {
+            m_MaxAmountOfFuel = i_MaxAmountOfFuel;
+        }
+
+        public bool ValidTypeOfFuelForThisVehicle(Engine.eFuelType i_WantedFuelType, Vehicle i_Vehicle)
         {
             return i_Vehicle.ValidTypeOfFuel(i_WantedFuelType);
         }
@@ -61,5 +67,18 @@ namespace B22_Ex03_Natali_318614906_Hila_207298894
             return m_CurrAmountOfFuel;
         }
 
+        public override void SetQuestionForVehicleType(List<string> i_QuestionForVehicle)
+        {
+            i_QuestionForVehicle.Add("Whats your current fuel remain ? :");
+        }
+
+        public override void CheckAnswerForVehicleType(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)
+        {
+            o_TheRightAnswer = false;
+            if (this.MaxAmountOfFuel >= float.Parse(i_AnswerForVehicle[2]))
+            {
+                o_TheRightAnswer = true;
+            }
+        }
     }
 }
