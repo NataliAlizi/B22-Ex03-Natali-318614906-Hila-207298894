@@ -36,6 +36,11 @@ namespace Ex03.GarageLogic
             return m_CurrBatteryTime;
         }
 
+        public override float MaxAmountOfFuelOrBattery()
+        {
+            return m_MaxBatteryTime;
+        }
+
         public float CurrBatteryTime
         {
             get { return m_CurrBatteryTime; }
@@ -59,6 +64,11 @@ namespace Ex03.GarageLogic
             if (this.MaxBatteryTime >= float.Parse(i_AnswerForVehicle[2]))
             {
                 o_TheRightAnswer = true;
+                m_CurrBatteryTime = float.Parse(i_AnswerForVehicle[2]);
+            }
+            else
+            {
+                i_AnswerForVehicle.RemoveAt(i_AnswerForVehicle.Count - 1);
             }
         }
 

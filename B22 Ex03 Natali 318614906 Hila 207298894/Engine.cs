@@ -16,7 +16,10 @@ namespace Ex03.GarageLogic
         public abstract void SetMaxFuelOrBattery(float i_Max);
 
         public abstract void Refueling(Vehicle i_Vehicle, Engine.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething);
+
         public abstract float CurrAmountOfFuelOrBattery();
+
+        public abstract float MaxAmountOfFuelOrBattery();
 
         public abstract void SetQuestionForVehicleType(List<string> i_QuestionForVehicle);
 

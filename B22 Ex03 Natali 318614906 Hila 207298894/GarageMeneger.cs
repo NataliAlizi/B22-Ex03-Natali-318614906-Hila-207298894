@@ -13,7 +13,6 @@ namespace Ex03.GarageLogic
             Car = 1, Motorcycle, Truck
         }
 
-
         public Vehicle MakeNewVehicle(int i_NumberOfTypeVehicle)
         {
             if (i_NumberOfTypeVehicle == 1)

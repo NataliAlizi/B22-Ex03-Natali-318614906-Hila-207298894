@@ -8,12 +8,12 @@ namespace Ex03.GarageLogic
 {
     public class GarageDataPerVehicle
     {
-        private string m_OwnerName=string.Empty;
-        private string m_OwnerPhoneNumber=string.Empty;
+        private string m_OwnerName = string.Empty;
+        private string m_OwnerPhoneNumber = string.Empty;
 
         public enum eVehicleStatus
         {
-            InRepair, Fixed, Paid
+            InRepair = 1, Fixed, Paid
         }
         private eVehicleStatus m_Status;
 
@@ -25,13 +25,12 @@ namespace Ex03.GarageLogic
             set { m_Status = value; }
         }
 
-
-        public GarageDataPerVehicle(string i_OwnerName, string i_OwnerPhoneNumber,string i_Status, Vehicle i_Vehicle)
+        public GarageDataPerVehicle(string i_OwnerName, string i_OwnerPhoneNumber, string i_Status, Vehicle i_Vehicle)
         {
             m_OwnerName = i_OwnerName;
             m_OwnerPhoneNumber = i_OwnerPhoneNumber;
             m_VehicleInGarage = i_Vehicle;
-            m_Status= (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus),i_Status); ///check exeption!!! (Format exeption)
+            m_Status = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), i_Status); ///check exeption!!! (Format exeption)
         }
 
         public string OwnerName

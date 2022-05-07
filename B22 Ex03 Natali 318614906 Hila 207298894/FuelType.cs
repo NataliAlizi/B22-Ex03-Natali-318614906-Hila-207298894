@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic
         private float m_MaxAmountOfFuel;
 
         public FuelType() { }
+
         public FuelType(string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel)
         {
             m_CurrAmountOfFuel = i_CurrAmountOfFuel;
@@ -67,17 +68,27 @@ namespace Ex03.GarageLogic
             return m_CurrAmountOfFuel;
         }
 
+        public override float MaxAmountOfFuelOrBattery()
+        {
+            return m_MaxAmountOfFuel;
+        }
+
         public override void SetQuestionForVehicleType(List<string> i_QuestionForVehicle)
         {
             i_QuestionForVehicle.Add("Whats your current fuel remain ? :");
         }
 
-        public override void CheckAnswerForVehicleType(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)
+        public override void CheckAnswerForVehicleType(List<string> io_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)
         {
             o_TheRightAnswer = false;
-            if (this.MaxAmountOfFuel >= float.Parse(i_AnswerForVehicle[2]))
+            if (this.MaxAmountOfFuel >= float.Parse(io_AnswerForVehicle[2]))
             {
                 o_TheRightAnswer = true;
+                m_CurrAmountOfFuel = float.Parse(io_AnswerForVehicle[2]);
+            }
+            else
+            {
+                io_AnswerForVehicle.RemoveAt(io_AnswerForVehicle.Count - 1);
             }
         }
     }

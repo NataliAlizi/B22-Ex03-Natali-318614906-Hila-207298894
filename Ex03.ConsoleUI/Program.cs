@@ -10,10 +10,9 @@ namespace Ex03.ConsoleUI
     {
         static public void Main()
         {
-
-            UserInputManagement ui=new UserInputManagement();
-            ui.GetNewVehicleAndHisData();
+            UserInputManagement ui = new UserInputManagement();
+            ui.PrintGarageMenu();
+    
         }
-
     }
 }

@@ -52,16 +52,16 @@ namespace Ex03.GarageLogic
         {
             io_vehicleData.AppendLine(String.Format("Fuel type: {0}", eTruckData.Soler.ToString()));
             io_vehicleData.AppendLine(String.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
-            io_vehicleData.AppendLine(String.Format("Number of wheels: {0}", eTruckData.NumberOfWheels.ToString()));
-            io_vehicleData.AppendLine(String.Format("Max air pressuer: {0}", eTruckData.MaxAirPressuer.ToString()));
-            io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", eTruckData.MaxAmountOfFuelInCm.ToString()));
-            io_vehicleData.AppendLine(String.Format("Drive refrigerated contents: {0}", m_DriveRefrigeratedContents.ToString()));
+            io_vehicleData.AppendLine(String.Format("Number of wheels: {0}", (int)eTruckData.NumberOfWheels));
+            io_vehicleData.AppendLine(String.Format("Max air pressuer: {0}", (int)eTruckData.MaxAirPressuer));
+            io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", (int)eTruckData.MaxAmountOfFuelInCm));
+            io_vehicleData.AppendLine(String.Format("Drive refrigerated contents: {0}", m_DriveRefrigeratedContents));
             io_vehicleData.AppendLine(String.Format("Cargo capacity: {0}", m_CargoCapacity));
         }
 
         public override void SetQuestionForVehicle(List<string> i_QuestionForVehicle)
         {
-            i_QuestionForVehicle.Add("Do your Truck Drive Refrigerated Contents   1)Yes 2)No");
+            i_QuestionForVehicle.Add("Do your Truck Drive Refrigerated Contents 1)Yes 2)No");
             i_QuestionForVehicle.Add("Type your Cargo Capacity :");
         }
 
@@ -78,7 +78,7 @@ namespace Ex03.GarageLogic
             this.CargoCapacity = float.Parse(i_AnswerForVehicle[4]);
         }
 
-        public override void SetWheelAndCheckAnswer(List<string> i_AnswerForVehicle, int i_Index, ref bool io_TheRightAnswer)
+        public override void SetWheelAndCheckAnswer(List<string> io_AnswerForVehicle, int i_Index, ref bool io_TheRightAnswer)
         {
             io_TheRightAnswer = false;
             int sizeNumberOfWheels = (int)eTruckData.NumberOfWheels;
@@ -89,42 +89,54 @@ namespace Ex03.GarageLogic
             }
             else if (i_Index == 1)
             {
-                io_TheRightAnswer = int.TryParse(i_AnswerForVehicle[1], out currAir);
+                io_TheRightAnswer = int.TryParse(io_AnswerForVehicle[1], out currAir);
                 if (currAir <= (int)eTruckData.MaxAirPressuer && io_TheRightAnswer)
                 {
                     io_TheRightAnswer = true;
+                    Wheel wheel = new Wheel(io_AnswerForVehicle[0], float.Parse(io_AnswerForVehicle[1]), (int)eTruckData.MaxAirPressuer);
+                    this.ListOfWheel = new List<Wheel>();
+                    for (int i = 0; i < sizeNumberOfWheels; i++)
+                    {
+                        this.ListOfWheel.Add(wheel);
+                    }
                 }
-            }
-            ///מוסיף את הגלגלים לרכב !! 
-            if (i_Index == 1)
-            {
-                Wheel wheel = new Wheel(i_AnswerForVehicle[0], float.Parse(i_AnswerForVehicle[1]), (int)eTruckData.MaxAirPressuer);
-                this.ListOfWheel = new List<Wheel>();
-                for (int i = 0; i < sizeNumberOfWheels; i++)
+                else
                 {
-                    this.ListOfWheel.Add(wheel);
+                    io_TheRightAnswer = false;
+                    io_AnswerForVehicle.RemoveAt(io_AnswerForVehicle.Count - 1);
                 }
             }
-
         }
 
         public override void CheckAnswerForVehicle(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)
         {
             o_TheRightAnswer = false;
+            bool validEngineCapacity = false;
+            float cargoCapacity;
             if (i_Index == 3)
             {
                 if (i_AnswerForVehicle[3] == "1" || i_AnswerForVehicle[3] == "2")
                 {
                     o_TheRightAnswer = true;
                 }
+                else
+                {
+                    i_AnswerForVehicle.RemoveAt(i_AnswerForVehicle.Count - 1);
+                }
             }
             else if (i_Index == 4)
             {
-                //לבדוק שזה מספר
-                o_TheRightAnswer = true;
+                validEngineCapacity = float.TryParse(i_AnswerForVehicle[4], out cargoCapacity);
+                if (validEngineCapacity)
+                {
+                    o_TheRightAnswer = true;
+                }
+                else
+                {
+                    i_AnswerForVehicle.RemoveAt(i_AnswerForVehicle.Count - 1);
+                }
             }
         }
-
 
         public override void SetMaxAmountOfFuelOrBattery()
         {
