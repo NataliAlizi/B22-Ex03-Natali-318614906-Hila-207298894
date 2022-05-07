@@ -16,20 +16,6 @@ namespace Ex03.GarageLogic
             set { m_ListOfVehicleInGarage = value; }
         }
 
-        //public List<string> DisplayLicenseNumber2(string i_VehicleStatus, bool i_AllVehicle)
-        //{
-        //    List<string> licenseNunbersList = new List<string>();
-        //    foreach (GarageDataPerVehicle garageDataPerVehicle in m_ListOfVehicleInGarage)
-        //    {
-        //        if (i_AllVehicle || i_VehicleStatus == garageDataPerVehicle.Status.ToString()) ///check if there is another way to parse and check exeption!!!
-        //        {
-        //            licenseNunbersList.Add(garageDataPerVehicle.VehicleInGarage.LicenseNumber);
-        //        }
-        //    }
-
-        //    return licenseNunbersList;
-        //}
-
         public List<string> DisplayLicenseNumber(int i_VehicleStatus)
         {
             List<string> licenseNunbersList = new List<string>();
@@ -43,19 +29,6 @@ namespace Ex03.GarageLogic
 
             return licenseNunbersList;
         }
-
-        //public void ChangeVehicleStatus(string i_LicenseNumber, string i_NewStatus)
-        //{
-        //    foreach (GarageDataPerVehicle garageDataPerVehicle in m_ListOfVehicleInGarage)
-        //    {
-
-        //        if (garageDataPerVehicle.VehicleInGarage.LicenseNumber == i_LicenseNumber)
-        //        {
-        //            garageDataPerVehicle.Status = (GarageDataPerVehicle.eVehicleStatus)Enum.Parse(typeof(GarageDataPerVehicle.eVehicleStatus), i_NewStatus); //check exeption of parse!!!
-        //            break;
-        //        }
-        //    }
-        //}
 
         public void ChangeVehicleStatus(string i_LicenseNumber, int i_NewStatus)
         {
@@ -110,10 +83,11 @@ namespace Ex03.GarageLogic
                 if (vehicle.VehicleInGarage.LicenseNumber == i_Vehicle.LicenseNumber)
                 {
                     isExist = true;
-                    vehicle.Status = (GarageDataPerVehicle.eVehicleStatus)Enum.Parse(typeof(GarageDataPerVehicle.eVehicleStatus), "InRepair"); //check exeption of parse!!!
+                    vehicle.Status = (GarageDataPerVehicle.eVehicleStatus)Enum.Parse(typeof(GarageDataPerVehicle.eVehicleStatus), "InRepair");
                     break;
                 }
             }
+
             if (!isExist)
             {
                 GarageDataPerVehicle newVehicle = new GarageDataPerVehicle(i_OwnerName, i_OwnerPhone, "InRepair", i_Vehicle);
@@ -133,6 +107,7 @@ namespace Ex03.GarageLogic
                     break;
                 }
             }
+
             if (!isExist)
             {
                 ArgumentException argumentException = new ArgumentException(string.Format("Vehicle with License number:{0} doesnt exist", i_LicenseNumber));
@@ -150,13 +125,13 @@ namespace Ex03.GarageLogic
                 if (vehicle.VehicleInGarage.LicenseNumber == i_LicenseNumber)
                 {
                     isExist = true;
-                    vehicleData.AppendLine(String.Format("License number: {0}", i_LicenseNumber));
-                    vehicleData.AppendLine(String.Format("Model name: {0}", vehicle.VehicleInGarage.ModelName));
-                    vehicleData.AppendLine(String.Format("Owner name: {0}", vehicle.OwnerName));
-                    vehicleData.AppendLine(String.Format("Vehicle status in garage: {0}", vehicle.Status.ToString()));
-                    vehicleData.AppendLine(String.Format("Manufacturer name of wheels: {0}", vehicle.VehicleInGarage.ListOfWheel[0].ManufacturerName));
-                    vehicleData.AppendLine(String.Format("Air Pressuer: {0}", vehicle.VehicleInGarage.ListOfWheel[0].CurrAirPressuer));
-                    vehicleData.AppendLine(String.Format("Remain energy in percents: {0}", vehicle.VehicleInGarage.RemainEnergyPercents));
+                    vehicleData.AppendLine(string.Format("License number: {0}", i_LicenseNumber));
+                    vehicleData.AppendLine(string.Format("Model name: {0}", vehicle.VehicleInGarage.ModelName));
+                    vehicleData.AppendLine(string.Format("Owner name: {0}", vehicle.OwnerName));
+                    vehicleData.AppendLine(string.Format("Vehicle status in garage: {0}", vehicle.Status.ToString()));
+                    vehicleData.AppendLine(string.Format("Manufacturer name of wheels: {0}", vehicle.VehicleInGarage.ListOfWheel[0].ManufacturerName));
+                    vehicleData.AppendLine(string.Format("Air Pressuer: {0}", vehicle.VehicleInGarage.ListOfWheel[0].CurrAirPressuer));
+                    vehicleData.AppendLine(string.Format("Remain energy in percents: {0}", vehicle.VehicleInGarage.RemainEnergyPercents));
                     vehicle.VehicleInGarage.AddRestDetails(vehicle.VehicleInGarage.MyEngine, vehicleData);
                 }
             }
@@ -173,11 +148,8 @@ namespace Ex03.GarageLogic
         public void SetQuestion(List<string> i_QuestionForVehicle, Vehicle i_Vehicle)
         {
             i_Vehicle.SetQuestionForWheels(i_QuestionForVehicle);
-
-            i_Vehicle.MyEngine.SetQuestionForVehicleType(i_QuestionForVehicle);///יוצר את השאלות על הדלק\בטריה
-
-            i_Vehicle.SetQuestionForVehicle(i_QuestionForVehicle);///יוצר את השאלות המיוחדות על כל רכב ורכב
-
+            i_Vehicle.MyEngine.SetQuestionForVehicleType(i_QuestionForVehicle);
+            i_Vehicle.SetQuestionForVehicle(i_QuestionForVehicle);
         }
 
         public void CheckAnswer(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer, Vehicle i_Vehicle)

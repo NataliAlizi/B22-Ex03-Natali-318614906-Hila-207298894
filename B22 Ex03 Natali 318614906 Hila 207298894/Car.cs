@@ -15,20 +15,16 @@ namespace Ex03.GarageLogic
 
         public enum eFuelCarData
         {
-            MaxAmountOfFuelInCm = 3800, Octan95
+            MaxAmountOfFuelInCm = 38000, Octan95
         }
 
-        public Car() { }
-
-        public Car(string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel, Engine i_engine, int i_NumberOfDoors, int i_Color) :
-            base(i_engine, i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
+        public Car()
         {
-            m_Color = (eColor)i_Color;
-            m_NumberOfDoors = (eNumberOfDoors)i_NumberOfDoors;
         }
 
         private eColor m_Color;
         private eNumberOfDoors m_NumberOfDoors;
+
         public enum eColor
         {
             Red, White, Green, Blue
@@ -66,21 +62,20 @@ namespace Ex03.GarageLogic
         {
             if (i_engine is ElectricType)
             {
-                io_vehicleData.AppendLine(String.Format("Max battery time in minute: {0}", (int)eElectricCarData.MaxBatteryTimeInMin));
-                io_vehicleData.AppendLine(String.Format("Current amount of battery: {0}", i_engine.CurrAmountOfFuelOrBattery()));
-
+                io_vehicleData.AppendLine(string.Format("Max battery time in minute: {0}", (int)eElectricCarData.MaxBatteryTimeInMin));
+                io_vehicleData.AppendLine(string.Format("Current amount of battery: {0}", i_engine.CurrAmountOfFuelOrBattery()));
             }
-            else //Fuel type
+            else
             {
-                io_vehicleData.AppendLine(String.Format("Fuel type: {0}", eFuelCarData.Octan95.ToString()));
-                io_vehicleData.AppendLine(String.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
-                io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", (int)eFuelCarData.MaxAmountOfFuelInCm));
+                io_vehicleData.AppendLine(string.Format("Fuel type: {0}", eFuelCarData.Octan95.ToString()));
+                io_vehicleData.AppendLine(string.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
+                io_vehicleData.AppendLine(string.Format("Max amount of fuel : {0}", (int)eFuelCarData.MaxAmountOfFuelInCm / 1000));
             }
 
-            io_vehicleData.AppendLine(String.Format("Number of wheels: {0}", (int)eElectricCarData.NumberOfWheels));
-            io_vehicleData.AppendLine(String.Format("Max air pressuer: {0}", (int)eElectricCarData.MaxAirPressuer));
-            io_vehicleData.AppendLine(String.Format("Car color: {0}", m_Color));
-            io_vehicleData.AppendLine(String.Format("Number of doors: {0}", m_NumberOfDoors));
+            io_vehicleData.AppendLine(string.Format("Number of wheels: {0}", (int)eElectricCarData.NumberOfWheels));
+            io_vehicleData.AppendLine(string.Format("Max air pressuer: {0}", (int)eElectricCarData.MaxAirPressuer));
+            io_vehicleData.AppendLine(string.Format("Car color: {0}", m_Color));
+            io_vehicleData.AppendLine(string.Format("Number of doors: {0}", m_NumberOfDoors));
         }
 
         public override void SetWheelAndCheckAnswer(List<string> io_AnswerForVehicle, int i_Index, ref bool io_TheRightAnswer)
@@ -121,8 +116,8 @@ namespace Ex03.GarageLogic
 
         public override void SetAnswerForVehicle(List<string> i_AnswerForVehicle)
         {
-            this.Color = (eColor)Enum.Parse(typeof(eColor), i_AnswerForVehicle[3]);///לבדוק מה לעשות. הערך בטוח נכון 
-            this.NumberOfDoors=(eNumberOfDoors)Enum.Parse(typeof(eNumberOfDoors), i_AnswerForVehicle[4]);
+            this.Color = (eColor)Enum.Parse(typeof(eColor), i_AnswerForVehicle[3]);
+            this.NumberOfDoors = (eNumberOfDoors)Enum.Parse(typeof(eNumberOfDoors), i_AnswerForVehicle[4]);
         }
 
         public override void CheckAnswerForVehicle(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)
@@ -153,18 +148,21 @@ namespace Ex03.GarageLogic
                 }
             }
         }
-       
+
         public override void SetMaxAmountOfFuelOrBattery()
         {
             float returnAnswer = 0;
-            if(this.MyEngine is FuelType)
+            if (this.MyEngine is FuelType)
             {
                 returnAnswer = (int)eFuelCarData.MaxAmountOfFuelInCm;
+                returnAnswer /= 1000;
             }
             else
             {
                 returnAnswer = (int)eElectricCarData.MaxBatteryTimeInMin;
+                returnAnswer /= 60;
             }
+
             this.MyEngine.SetMaxFuelOrBattery(returnAnswer);
         }
     }

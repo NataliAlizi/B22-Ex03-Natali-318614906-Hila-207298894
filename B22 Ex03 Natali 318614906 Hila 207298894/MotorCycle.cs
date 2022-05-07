@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public class MotorCycle:Vehicle
+    public class MotorCycle : Vehicle
     {
         private enum eElectricMotorcycleData
         {
@@ -15,25 +15,22 @@ namespace Ex03.GarageLogic
 
         public enum eFuelMotorCycleData
         {
-           MaxAmountOfFuelInCm = 620, Octan98
+            MaxAmountOfFuelInCm = 6200, Octan98
         }
 
-        public MotorCycle() { }
-
-        public MotorCycle(int i_LicenseType,int i_EngineCapacity,string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel, Engine i_engine) :
-            base(i_engine, i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
+        public MotorCycle()
         {
-            m_LicenseType = (eLicenseType)i_LicenseType;
-            m_EngineCapacity = i_EngineCapacity;
         }
 
         public enum eLicenseType
         {
             A, A1, B1, BB
         }
+
         private eLicenseType m_LicenseType;
 
         private int m_EngineCapacity;
+
         public eLicenseType LicenseType
         {
             get { return m_LicenseType; }
@@ -59,24 +56,22 @@ namespace Ex03.GarageLogic
 
         public override void AddRestDetails(Engine i_engine, StringBuilder io_vehicleData)
         {
-            if(i_engine is ElectricType)
+            if (i_engine is ElectricType)
             {
-                io_vehicleData.AppendLine(String.Format("Max battery time in minute: {0}", (int)eElectricMotorcycleData.MaxBatteryTimeInMin));
-                io_vehicleData.AppendLine(String.Format("Current amount of battery: {0}", i_engine.CurrAmountOfFuelOrBattery()));
-
+                io_vehicleData.AppendLine(string.Format("Max battery time in minute: {0}", (int)eElectricMotorcycleData.MaxBatteryTimeInMin));
+                io_vehicleData.AppendLine(string.Format("Current amount of battery: {0}", i_engine.CurrAmountOfFuelOrBattery()));
             }
-            else //Fuel type
+            else
             {
-                io_vehicleData.AppendLine(String.Format("Fuel type: {0}", eFuelMotorCycleData.Octan98.ToString()));
-                io_vehicleData.AppendLine(String.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
-                io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", (int)eFuelMotorCycleData.MaxAmountOfFuelInCm));
+                io_vehicleData.AppendLine(string.Format("Fuel type: {0}", eFuelMotorCycleData.Octan98.ToString()));
+                io_vehicleData.AppendLine(string.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
+                io_vehicleData.AppendLine(string.Format("Max amount of fuel :{0}", (int)eFuelMotorCycleData.MaxAmountOfFuelInCm / 1000));
             }
 
-            io_vehicleData.AppendLine(String.Format("Number of wheels: {0}", (int)eElectricMotorcycleData.NumberOfWheels));
-            io_vehicleData.AppendLine(String.Format("Max air pressuer: {0}", (int)eElectricMotorcycleData.MaxAirPressuer));
-            io_vehicleData.AppendLine(String.Format("License type: {0}", m_LicenseType.ToString()));
-            io_vehicleData.AppendLine(String.Format("Engine capacity: {0}", m_EngineCapacity));
-
+            io_vehicleData.AppendLine(string.Format("Number of wheels: {0}", (int)eElectricMotorcycleData.NumberOfWheels));
+            io_vehicleData.AppendLine(string.Format("Max air pressuer: {0}", (int)eElectricMotorcycleData.MaxAirPressuer));
+            io_vehicleData.AppendLine(string.Format("License type: {0}", m_LicenseType.ToString()));
+            io_vehicleData.AppendLine(string.Format("Engine capacity: {0}", m_EngineCapacity));
         }
 
         public override void SetQuestionForVehicle(List<string> i_QuestionForVehicle)
@@ -111,7 +106,7 @@ namespace Ex03.GarageLogic
             else if (i_Index == 4)
             {
                 validEngineCapacity = int.TryParse(i_AnswerForVehicle[4], out engineCapacity);
-                if(validEngineCapacity)
+                if (validEngineCapacity)
                 {
                     o_TheRightAnswer = true;
                 }
@@ -150,7 +145,6 @@ namespace Ex03.GarageLogic
                     io_AnswerForVehicle.RemoveAt(io_AnswerForVehicle.Count - 1);
                 }
             }
-        
         }
 
         public override void SetMaxAmountOfFuelOrBattery()
@@ -159,11 +153,14 @@ namespace Ex03.GarageLogic
             if (this.MyEngine is FuelType)
             {
                 returnAnswer = (int)eFuelMotorCycleData.MaxAmountOfFuelInCm;
+                returnAnswer /= 1000;
             }
             else
             {
                 returnAnswer = (int)eElectricMotorcycleData.MaxBatteryTimeInMin;
+                returnAnswer /= 60;
             }
+
             this.MyEngine.SetMaxFuelOrBattery(returnAnswer);
         }
     }

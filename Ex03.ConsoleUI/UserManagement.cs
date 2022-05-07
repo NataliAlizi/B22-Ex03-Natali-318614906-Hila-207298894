@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ex03.ConsoleUI
 {
-    public class UserInputManagement
+    public class UserManagement
     {
-
         private Ex03.GarageLogic.Garage m_Garage = new Ex03.GarageLogic.Garage();
         private Ex03.GarageLogic.GarageMeneger m_GarageMeneger = new Ex03.GarageLogic.GarageMeneger();
 
@@ -274,6 +273,7 @@ namespace Ex03.ConsoleUI
             {
                 io_TypeOfEngine = getAndCheckFuelOrElectricType();
             }
+
             if (io_TypeOfEngine == 1)
             {
                 io_Vehicle.MyEngine = new Ex03.GarageLogic.FuelType();
@@ -282,7 +282,6 @@ namespace Ex03.ConsoleUI
             {
                 io_Vehicle.MyEngine = new Ex03.GarageLogic.ElectricType();
             }
-
         }
 
         public Ex03.GarageLogic.Vehicle GetNewVehicle(ref int io_TypeOfVehicle)
@@ -335,8 +334,8 @@ namespace Ex03.ConsoleUI
                     }
                 }
                 while (!answerOkForThisQuestion);
-
             }
+
             io_Vehicle.SetAnswerForVehicle(answerList);
         }
 
@@ -350,6 +349,7 @@ namespace Ex03.ConsoleUI
             {
                 typeOfVehicle.Append(++index + ") " + vehicleTypes + " ");
             }
+
             do
             {
                 Console.Clear();
@@ -381,7 +381,6 @@ namespace Ex03.ConsoleUI
                 {
                     validInput = true;
                 }
-
             }
             while (!validInput || !validParse);
 
@@ -411,12 +410,13 @@ namespace Ex03.ConsoleUI
             for (int i = 0; i < i_PhoneNumber.Length; i++)
             {
                 if ((i == 0 && i_PhoneNumber[i] != '0') || (i == 1 && i_PhoneNumber[i] != '5') ||
-                    (i == 2 && (i_PhoneNumber[i] != 0 && i_PhoneNumber[i] != 2 && i_PhoneNumber[i] != 3 && i_PhoneNumber[i] != 4 && i_PhoneNumber[i] != 5))
-                    && (i_PhoneNumber[i] < '0' || i_PhoneNumber[i] > '9'))
+                    ((i == 2 && (i_PhoneNumber[i] != 0 && i_PhoneNumber[i] != 2 && i_PhoneNumber[i] != 3 && i_PhoneNumber[i] != 4 && i_PhoneNumber[i] != 5))
+                    && (i_PhoneNumber[i] < '0' || i_PhoneNumber[i] > '9')))
                 {
                     answer = false;
                 }
             }
+
             return answer;
         }
 
@@ -453,4 +453,3 @@ namespace Ex03.ConsoleUI
         }
     }
 }
-

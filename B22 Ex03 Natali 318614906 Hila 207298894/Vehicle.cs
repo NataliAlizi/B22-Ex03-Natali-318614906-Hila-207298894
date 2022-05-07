@@ -6,31 +6,24 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    abstract public class Vehicle
+    public abstract class Vehicle
     {
         private string m_ModelName;
         private string m_LicenseNumber;
         private float m_RemainEnergyPercents;
         private List<Wheel> m_ListOfWheel;
-        Engine m_engine;
+        private Engine m_Engine;
 
-        public Vehicle() { }
-
-        public Vehicle(Engine i_engine, string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel)
-        {
-            m_ModelName = i_ModelName;
-            m_LicenseNumber = i_LicenseNumber;
-            m_RemainEnergyPercents = i_RemainEnergyPercents;
-            m_ListOfWheel = new List<Wheel>(i_ListOfWheel.Count);
-            m_ListOfWheel = i_ListOfWheel;
-            m_engine = i_engine;
+        public Vehicle()
+        { 
         }
 
         public Engine MyEngine
         {
-            get { return m_engine; }
-            set { m_engine = value; }
+            get { return m_Engine; }
+            set { m_Engine = value; }
         }
+
         public string ModelName
         {
             get { return m_ModelName; }

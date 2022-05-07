@@ -11,12 +11,9 @@ namespace Ex03.GarageLogic
         private float m_CurrBatteryTime;
         private float m_MaxBatteryTime;
 
-        public ElectricType() { }
-        //public ElectricType(float i_CurrBatteryTime, float i_MaxBatteryTime)
-        //{
-        //    m_MaxBatteryTime = i_MaxBatteryTime;
-        //    m_CurrBatteryTime = i_CurrBatteryTime;
-        //}
+        public ElectricType() 
+        {
+        }
 
         public override void Refueling(Vehicle i_Vehicle, Engine.eFuelType i_WantedFuelType, float i_WantedAmountOfsomething)
         {
@@ -55,7 +52,7 @@ namespace Ex03.GarageLogic
 
         public override void SetQuestionForVehicleType(List<string> i_QuestionForVehicle)
         {
-            i_QuestionForVehicle.Add("Whats your current Battery time left ? (in min) :");
+            i_QuestionForVehicle.Add("Whats your current Battery time left ?:");
         }
 
         public override void CheckAnswerForVehicleType(List<string> i_AnswerForVehicle, int i_Index, ref bool o_TheRightAnswer)

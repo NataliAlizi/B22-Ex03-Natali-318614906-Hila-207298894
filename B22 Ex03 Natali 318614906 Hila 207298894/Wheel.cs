@@ -37,7 +37,6 @@ namespace Ex03.GarageLogic
             set { m_MaxAirPressuer = value; }
         }
 
-        /*פעולת ניפוח מקבלת כמה אוויר להוסיף לגלגל ומשנה את מצב לחץ האוויר אם הוא לא חורג מהמקסימום*/
         public void WheelInflation(float i_HowMuchAirPressuerToAdd)
         {
             if (m_CurrAirPressuer + i_HowMuchAirPressuerToAdd <= m_MaxAirPressuer)

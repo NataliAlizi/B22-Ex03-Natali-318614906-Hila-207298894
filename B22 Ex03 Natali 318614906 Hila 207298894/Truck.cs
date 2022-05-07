@@ -16,13 +16,8 @@ namespace Ex03.GarageLogic
             NumberOfWheels = 16, MaxAirPressuer = 24, MaxAmountOfFuelInCm = 120000, Soler
         }
 
-        public Truck() { }
-
-        public Truck(string i_ModelName, string i_LicenseNumber, float i_RemainEnergyPercents, List<Wheel> i_ListOfWheel, Engine i_engine, bool i_DriveRefrigeratedContents, float i_CargoCapacity) :
-            base(i_engine, i_ModelName, i_LicenseNumber, i_RemainEnergyPercents, i_ListOfWheel)
+        public Truck()
         {
-            m_DriveRefrigeratedContents = i_DriveRefrigeratedContents;
-            m_CargoCapacity = i_CargoCapacity;
         }
 
         public bool DriveRefrigeratedContents
@@ -50,13 +45,13 @@ namespace Ex03.GarageLogic
 
         public override void AddRestDetails(Engine i_engine, StringBuilder io_vehicleData)
         {
-            io_vehicleData.AppendLine(String.Format("Fuel type: {0}", eTruckData.Soler.ToString()));
-            io_vehicleData.AppendLine(String.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
-            io_vehicleData.AppendLine(String.Format("Number of wheels: {0}", (int)eTruckData.NumberOfWheels));
-            io_vehicleData.AppendLine(String.Format("Max air pressuer: {0}", (int)eTruckData.MaxAirPressuer));
-            io_vehicleData.AppendLine(String.Format("Max amount of fuel in cm: {0}", (int)eTruckData.MaxAmountOfFuelInCm));
-            io_vehicleData.AppendLine(String.Format("Drive refrigerated contents: {0}", m_DriveRefrigeratedContents));
-            io_vehicleData.AppendLine(String.Format("Cargo capacity: {0}", m_CargoCapacity));
+            io_vehicleData.AppendLine(string.Format("Fuel type: {0}", eTruckData.Soler.ToString()));
+            io_vehicleData.AppendLine(string.Format("Current amount of fuel: {0}", i_engine.CurrAmountOfFuelOrBattery()));
+            io_vehicleData.AppendLine(string.Format("Number of wheels: {0}", (int)eTruckData.NumberOfWheels));
+            io_vehicleData.AppendLine(string.Format("Max air pressuer: {0}", (int)eTruckData.MaxAirPressuer));
+            io_vehicleData.AppendLine(string.Format("Max amount of fuel : {0}", (int)eTruckData.MaxAmountOfFuelInCm / 1000));
+            io_vehicleData.AppendLine(string.Format("Drive refrigerated contents: {0}", m_DriveRefrigeratedContents));
+            io_vehicleData.AppendLine(string.Format("Cargo capacity: {0}", m_CargoCapacity));
         }
 
         public override void SetQuestionForVehicle(List<string> i_QuestionForVehicle)
@@ -75,6 +70,7 @@ namespace Ex03.GarageLogic
             {
                 this.DriveRefrigeratedContents = false;
             }
+
             this.CargoCapacity = float.Parse(i_AnswerForVehicle[4]);
         }
 
@@ -141,6 +137,7 @@ namespace Ex03.GarageLogic
         public override void SetMaxAmountOfFuelOrBattery()
         {
             float max = (int)eTruckData.MaxAmountOfFuelInCm;
+            max /= 1000;
             this.MyEngine.SetMaxFuelOrBattery(max);
         }
     }

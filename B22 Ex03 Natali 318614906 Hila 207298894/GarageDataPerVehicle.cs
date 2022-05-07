@@ -15,6 +15,7 @@ namespace Ex03.GarageLogic
         {
             InRepair = 1, Fixed, Paid
         }
+
         private eVehicleStatus m_Status;
 
         private Vehicle m_VehicleInGarage;
@@ -30,7 +31,7 @@ namespace Ex03.GarageLogic
             m_OwnerName = i_OwnerName;
             m_OwnerPhoneNumber = i_OwnerPhoneNumber;
             m_VehicleInGarage = i_Vehicle;
-            m_Status = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), i_Status); ///check exeption!!! (Format exeption)
+            m_Status = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), i_Status);
         }
 
         public string OwnerName

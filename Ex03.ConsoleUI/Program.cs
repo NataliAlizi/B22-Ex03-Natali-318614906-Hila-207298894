@@ -8,11 +8,10 @@ namespace Ex03.ConsoleUI
 {
     public class Program
     {
-        static public void Main()
+        public static void Main()
         {
-            UserInputManagement ui = new UserInputManagement();
+            UserManagement ui = new UserManagement();
             ui.PrintGarageMenu();
-    
         }
     }
 }

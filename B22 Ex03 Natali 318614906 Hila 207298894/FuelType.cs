@@ -8,11 +8,12 @@ namespace Ex03.GarageLogic
 {
     public class FuelType : Engine
     {
-
         private float m_CurrAmountOfFuel;
         private float m_MaxAmountOfFuel;
 
-        public FuelType() { }
+        public FuelType()
+        { 
+        }
 
         public FuelType(string i_FuelType, float i_CurrAmountOfFuel, float i_MaxAmountOfFuel)
         {
