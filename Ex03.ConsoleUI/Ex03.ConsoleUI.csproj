@@ -8,10 +8,11 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Ex03.ConsoleUI</RootNamespace>
     <AssemblyName>Ex03.ConsoleUI</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,8 +41,8 @@
     <Compile Include="UserManagement.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\B22 Ex03 Natali 318614906 Hila 207298894\Ex03.GarageLogic.csproj">
-      <Project>{7ae6888c-3695-4cee-bfc4-1c0dee8b4072}</Project>
+    <ProjectReference Include="..\Ex03.GarageLogic\Ex03.GarageLogic.csproj">
+      <Project>{8b66340e-ef44-4336-b156-8d6c7ad82875}</Project>
       <Name>Ex03.GarageLogic</Name>
     </ProjectReference>
   </ItemGroup>

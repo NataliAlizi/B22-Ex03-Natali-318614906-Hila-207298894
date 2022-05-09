@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
     public class UserManagement
     {
-        private Ex03.GarageLogic.Garage m_Garage = new Ex03.GarageLogic.Garage();
-        private Ex03.GarageLogic.GarageMeneger m_GarageMeneger = new Ex03.GarageLogic.GarageMeneger();
+        private Garage m_Garage = new Garage();
+        private GarageMeneger m_GarageMeneger = new GarageMeneger();
 
         public void PrintGarageMenu()
         {
@@ -84,7 +85,7 @@ namespace Ex03.ConsoleUI
 
                 checkIfUserWantContinue(i_UserChoice, ref io_End);
             }
-            catch (Ex03.GarageLogic.ValueOutOfRangeException ex)
+            catch (ValueOutOfRangeException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -263,9 +264,9 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        public void GetEngine(ref int io_TypeOfEngine, Ex03.GarageLogic.Vehicle io_Vehicle)
+        public void GetEngine(ref int io_TypeOfEngine, Vehicle io_Vehicle)
         {
-            if (io_Vehicle is Ex03.GarageLogic.Truck)
+            if (io_Vehicle is Truck)
             {
                 io_TypeOfEngine = 1;
             }
@@ -276,26 +277,26 @@ namespace Ex03.ConsoleUI
 
             if (io_TypeOfEngine == 1)
             {
-                io_Vehicle.MyEngine = new Ex03.GarageLogic.FuelType();
+                io_Vehicle.MyEngine = new FuelType();
             }
             else
             {
-                io_Vehicle.MyEngine = new Ex03.GarageLogic.ElectricType();
+                io_Vehicle.MyEngine = new ElectricType();
             }
         }
 
-        public Ex03.GarageLogic.Vehicle GetNewVehicle(ref int io_TypeOfVehicle)
+        public Vehicle GetNewVehicle(ref int io_TypeOfVehicle)
         {
             io_TypeOfVehicle = getAndCheckValidVehicleType();
             return m_GarageMeneger.MakeNewVehicle(io_TypeOfVehicle);
         }
 
-        public Ex03.GarageLogic.Vehicle GetNewVehicleAndHisData()
+        public Vehicle GetNewVehicleAndHisData()
         {
             int vehicleTypeInInt = 0, fuelOrElectricInInt = 0;
             string modelName = string.Empty, licenseNumber = string.Empty, wheelManufacturerName = string.Empty;
             List<string> questionForVehicle = new List<string>();
-            Ex03.GarageLogic.Vehicle vehicle = GetNewVehicle(ref vehicleTypeInInt);
+            Vehicle vehicle = GetNewVehicle(ref vehicleTypeInInt);
             GetEngine(ref fuelOrElectricInInt, vehicle);
             getModelNameAndLicenseNumber(ref modelName, ref licenseNumber);
             m_Garage.SetQuestion(questionForVehicle, vehicle);
@@ -305,14 +306,14 @@ namespace Ex03.ConsoleUI
             return vehicle;
         }
 
-        private void setData(Ex03.GarageLogic.Vehicle io_vehicle, string i_LlicenseNumber, string i_ModelName)
+        private void setData(Vehicle io_vehicle, string i_LlicenseNumber, string i_ModelName)
         {
             io_vehicle.LicenseNumber = i_LlicenseNumber;
             io_vehicle.ModelName = i_ModelName;
             io_vehicle.RemainEnergyPercents = io_vehicle.MyEngine.CurrAmountOfFuelOrBattery() / io_vehicle.MyEngine.MaxAmountOfFuelOrBattery() * 100;
         }
 
-        private void askQuestionAndCheckAnswer(List<string> i_QuestionForVehicle, Ex03.GarageLogic.Vehicle io_Vehicle)
+        private void askQuestionAndCheckAnswer(List<string> i_QuestionForVehicle, Vehicle io_Vehicle)
         {
             int index = 0;
             string answer = string.Empty;
@@ -345,7 +346,7 @@ namespace Ex03.ConsoleUI
             int choiceNumber = 0, index = 0;
             string vehicleType;
             StringBuilder typeOfVehicle = new StringBuilder("Please enter your vehicle type  ");
-            foreach (Ex03.GarageLogic.GarageMeneger.eVehicleType vehicleTypes in Enum.GetValues(typeof(Ex03.GarageLogic.GarageMeneger.eVehicleType)))
+            foreach (GarageMeneger.eVehicleType vehicleTypes in Enum.GetValues(typeof(GarageMeneger.eVehicleType)))
             {
                 typeOfVehicle.Append(++index + ") " + vehicleTypes + " ");
             }
